@@ -4,7 +4,7 @@ Turn the ExpressionEngine status dropdown into pill buttons for a more friendly 
 
 ## Usage
 
-Simple copy the `pillster` directory to your ExpressionEngine third_party directory and install the extention in the ExpressionEngine Control Pannel. Your status dropdowns will now appear as clickable pill buttons, saving you clicks and exposing all the statuses for you to see.
+Simply copy the `pillster` directory to your ExpressionEngine third_party directory and install the extension in the ExpressionEngine Control Panel. Your status dropdowns will now appear as clickable pill buttons, saving you clicks and exposing all the statuses for you to see.
 
 ## Screen Shots
 
