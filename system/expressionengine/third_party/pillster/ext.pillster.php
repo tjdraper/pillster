@@ -16,7 +16,7 @@ class Pillster_ext {
 	public $version = PILLSTER_VER;
 	public $description = PILLSTER_DESC;
 	public $docs_url = '';
-	public $settings_exist	= 'n';
+	public $settings_exist	= 'y';
 	public $settings = array();
 
 	/**
@@ -30,6 +30,21 @@ class Pillster_ext {
 		$this->settings = $settings;
 	}
 
+	public function settings()
+	{
+		$settings = array();
+
+		$settings['Color'] = array(
+			'c',
+			array(
+				'1' => lang('status_color_description')
+			),
+			array()
+		);
+
+		return $settings;
+	}
+
 	/**
 	 * Activate Extension
 	 *
@@ -37,15 +52,22 @@ class Pillster_ext {
 	 */
 	public function activate_extension()
 	{
-		ee()->db->insert('extensions', array(
+		// Default settings
+		$this->settings = array(
+			'Color' => array()
+		);
+
+		$data = array(
 			'class' => __CLASS__,
 			'method' => 'publish_form_entry_data',
 			'hook' => 'publish_form_entry_data',
-			'settings' => '',
+			'settings' => serialize($this->settings),
 			'priority' => 10,
 			'version' => $this->version,
 			'enabled' => 'y'
-		));
+		);
+
+		ee()->db->insert('extensions', $data);
 	}
 
 	/**
@@ -55,11 +77,30 @@ class Pillster_ext {
 	 */
 	public function update_extension($current = '')
 	{
-		if ($current == $this->version) {
+		if ($current === $this->version) {
 			return false;
 		}
 
+		if ($current === '1.0.0') {
+			$this->_1_0_0_To_1_1_0();
+		}
+
 		return true;
+	}
+
+	private function _1_0_0_To_1_1_0()
+	{
+		$this->settings = array(
+			'Color' => array()
+		);
+
+		$data = array(
+			'settings' => serialize($this->settings),
+			'version' => $this->version
+		);
+
+		ee()->db->where('class', __CLASS__);
+		ee()->db->update('extensions', $data);
 	}
 
 	/**
@@ -83,7 +124,31 @@ class Pillster_ext {
 	{
 		ee()->cp->load_package_js('script');
 
-		$css = file_get_contents(PILLSTER_PATH . 'css/style.css');
+		$css = '<style type="text/css">';
+
+		$css .= file_get_contents(PILLSTER_PATH . 'css/style.css');
+
+		if ($this->settings['Color']) {
+			// Load the model
+			ee()->load->model('pillster_model');
+
+			// Get status info
+			$statusInfo = ee()->pillster_model->getStatusInfo();
+
+			foreach ($statusInfo as $status) {
+				$css .= '.pillster__status--' . $status['value'] . ',';
+
+				$css .= '.pillster__status--' . $status['value'] . '.selected';
+
+				$css .= '{';
+
+				$css .= 'color: #' . $status['color'] . ' !important;';
+
+				$css .= '} ';
+			}
+		}
+
+		$css .= '</style>';
 
 		ee()->cp->add_to_head($css);
 

@@ -12,6 +12,8 @@ _.defer(function() {
 
 		statusPills += '<a href="#" class="pillster__status';
 
+		statusPills += ' pillster__status--' + value;
+
 		if ($option.attr('selected')) {
 			statusPills += ' selected'
 		}
