@@ -46,8 +46,10 @@ _.defer(function() {
 
 		$statusOptions.attr('selected', false);
 
-		$('.status-select-' + $this.data('value')).attr('selected', true);
-
+		var val_name = $this.data('value');
+		
+		$('select[name="status"] option[value="'+val_name+'"]').attr('selected', true);
+		
 		$pills.removeClass('selected');
 
 		$this.addClass('selected');
