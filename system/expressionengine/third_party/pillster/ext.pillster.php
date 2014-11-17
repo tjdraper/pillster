@@ -81,26 +81,22 @@ class Pillster_ext {
 			return false;
 		}
 
-		if ($current === '1.0.0') {
-			$this->_1_0_0_To_1_1_0();
-		}
-
-		return true;
-	}
-
-	private function _1_0_0_To_1_1_0()
-	{
-		$this->settings = array(
-			'Color' => array()
-		);
-
 		$data = array(
-			'settings' => serialize($this->settings),
 			'version' => $this->version
 		);
 
+		if ($current === '1.0.0') {
+			$this->settings = array(
+				'Color' => array()
+			);
+
+			$data['settings'] = serialize($this->settings);
+		}
+
 		ee()->db->where('class', __CLASS__);
 		ee()->db->update('extensions', $data);
+
+		return true;
 	}
 
 	/**
@@ -136,9 +132,11 @@ class Pillster_ext {
 			$statusInfo = ee()->pillster_model->getStatusInfo();
 
 			foreach ($statusInfo as $status) {
-				$css .= '.pillster__status--' . $status['value'] . ',';
+				$value = str_replace(' ', '', $status['value']);
 
-				$css .= '.pillster__status--' . $status['value'] . '.selected';
+				$css .= '.pillster__status--' . $value . ',';
+
+				$css .= '.pillster__status--' . $value . '.selected';
 
 				$css .= '{';
 
