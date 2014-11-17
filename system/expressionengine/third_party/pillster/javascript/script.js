@@ -2,53 +2,59 @@ _.defer(function() {
 	var $statusContainer = $('#sub_hold_field_status'),
 		$statusOptions = $statusContainer.find('option'),
 		$statusFieldSet = $statusContainer.children('.holder');
-		statusPills = '<div class="pillster">';
+		$statusPills = $('<div class="pillster"></div>'),
+		$allPills = $(),
+		$statusSelectsObj = {};
 	
 	$statusOptions.each(function(i, option) {
 		var $option = $(option),
 			value = $option.attr('value'),
-			label = $option.text()
-			selected = false;
+			label = $option.text(),
+			selected = false,
+			thisPill = '';
 
-		statusPills += '<a href="#" class="pillster__status';
+		$statusSelectsObj[value] = $option;
 
-		statusPills += ' pillster__status--' + value;
+		thisPill += '<a href="#" class="pillster__status';
+
+		thisPill += ' pillster__status--' + value.replace(/\s+/g, '');
 
 		if ($option.attr('selected')) {
-			statusPills += ' selected'
+			thisPill += ' selected'
 		}
 
-		statusPills += '" ';
+		thisPill += '" ';
 
-		statusPills += 'data-value="' + value + '"'
+		thisPill += 'data-value="' + value + '"';
 
-		statusPills += '>';
+		thisPill += '>';
 
-		statusPills += label;
+		thisPill += label;
 
-		statusPills += '</a>';
+		thisPill += '</a>';
 
-		$option.addClass('status-select').addClass('status-select-' + value);
+		var $thisPill = $(thisPill);
+
+		$statusPills.append($thisPill);
+
+		$allPills = $allPills.add($thisPill);
 	});
-
-	statusPills += '</div>';
 
 	$statusFieldSet.hide();
 
-	$statusContainer.append(statusPills);
+	$statusContainer.append($statusPills);
 
-	var $pills = $('.pillster__status');
-
-	$pills.on('click', function(e) {
-		var $this = $(this);
+	$allPills.on('click', function(e) {
+		var $this = $(this),
+			value = $this.data('value');
 
 		e.preventDefault();
 
 		$statusOptions.attr('selected', false);
 
-		$('.status-select-' + $this.data('value')).attr('selected', true);
+		$statusSelectsObj[value].attr('selected', true);
 
-		$pills.removeClass('selected');
+		$allPills.removeClass('selected');
 
 		$this.addClass('selected');
 
