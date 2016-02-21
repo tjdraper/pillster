@@ -57,6 +57,11 @@ class Pillster_ext
 		}
 
 		$installer = new Installer($this->appInfo);
+
+		if (version_compare($cur, '2.0.0', '<')) {
+			$installer->update1xTo2x();
+		}
+
 		$installer->generalUpdate();
 
 		return true;

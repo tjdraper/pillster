@@ -71,4 +71,13 @@ class Installer
 
 		$extension->save();
 	}
+
+	/**
+	 * Update from 1.x to 2.x
+	 */
+	public function update1xTo2x()
+	{
+		$this->uninstall();
+		$this->install();
+	}
 }
