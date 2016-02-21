@@ -1,8 +1,8 @@
-# Pillster 1.1.1 for ExpressionEngine
+# Pillster 2.0.0 for ExpressionEngine 3
 
-Turn the ExpressionEngine status dropdown into pill buttons for a more friendly user experience.
+The name Pillster comes from the fact that it used to turn the status dropdown into pill buttons. Now it uses ExpressionEngine 3’s native radio button styles, but they’re still kind of like pills and changing the name is too much trouble. And what would I change the name to anyway?
 
-If, like me, you are tired of clicking multiple times to get the status set right when publishing an ExpressionEngine entry and you just want to see the status you want, aim your mouse at it and just click once, then this add-on is for you. It's super easy to install and will work on all your channel entries.
+So, Pillster turns the ExpressionEngine status dropdown into radio buttons which makes a little more sense to me. It allows visually scanning all avaialble statuses and once, and simply clicking on the one you want.
 
 ## Documentation
 
@@ -10,7 +10,7 @@ Documentation is available at https://buzzingpixel.com/ee-add-ons/pillster/docum
 
 ## License
 
-Copyright 2015 TJ Draper.
+Copyright 2016 BuzzingPixel, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
