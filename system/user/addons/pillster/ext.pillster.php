@@ -17,9 +17,6 @@ class Pillster_ext
 	// Set the version for ExpressionEngine
 	public $version = TEMPLATE_SYNC_VER;
 
-	// Set a variable for the settings
-	public $settings = array();
-
 	protected $appInfo;
 
 	/**
@@ -30,27 +27,6 @@ class Pillster_ext
 	public function __construct($settings = array())
 	{
 		$this->appInfo = ee('App')->get('pillster');
-		$this->settings = $settings;
-	}
-
-	/**
-	 * Extension settings
-	 *
-	 * @return array
-	 */
-	public function settings()
-	{
-		$settings = array();
-
-		$settings['Color'] = array(
-			'c',
-			array(
-				'1' => lang('status_color_description')
-			),
-			array()
-		);
-
-		return $settings;
 	}
 
 	/**
@@ -58,7 +34,7 @@ class Pillster_ext
 	 */
 	public function activate_extension()
 	{
-		$installer = new Installer($this->appInfo, $this->settings);
+		$installer = new Installer($this->appInfo);
 		$installer->install();
 	}
 
@@ -67,7 +43,7 @@ class Pillster_ext
 	 */
 	public function disable_extension()
 	{
-		$installer = new Installer($this->appInfo, $this->settings);
+		$installer = new Installer($this->appInfo);
 		$installer->uninstall();
 	}
 
@@ -80,19 +56,10 @@ class Pillster_ext
 			return false;
 		}
 
-		$installer = new Installer($this->appInfo, $this->settings);
+		$installer = new Installer($this->appInfo);
 		$installer->generalUpdate();
 
 		return true;
-	}
-
-	/**
-	 * cp_css_end
-	 */
-	public function cp_css_end()
-	{
-		var_dump('here');
-		die;
 	}
 
 	/**
@@ -100,7 +67,6 @@ class Pillster_ext
 	 */
 	public function cp_js_end()
 	{
-		var_dump('here');
-		die;
+		return file_get_contents(PATH_THIRD . 'pillster/javascript/script.js');
 	}
 }

@@ -9,6 +9,5 @@ return array(
 	'docs_url' => 'https://buzzingpixel.com/ee-add-ons/pillster/documentation',
 	'name' => 'Pillster',
 	'namespace' => 'BuzzingPixel\Pillster',
-	'settings_exist' => true,
 	'version' => PILLSTER_VER
 );
