@@ -15,7 +15,7 @@ use BuzzingPixel\Pillster\Controller\Sync;
 class Pillster_ext
 {
 	// Set the version for ExpressionEngine
-	public $version = TEMPLATE_SYNC_VER;
+	public $version = PILLSTER_VER;
 
 	protected $appInfo;
 
@@ -72,6 +72,13 @@ class Pillster_ext
 	 */
 	public function cp_js_end()
 	{
-		return file_get_contents(PATH_THIRD . 'pillster/javascript/script.js');
+		// Get any previous items set on this extension call
+		$js = ee()->extensions->last_call ?: '';
+
+		// Get the JS for this extension
+		$js .= file_get_contents(PATH_THIRD . 'pillster/javascript/script.js');
+
+		// Return the JS
+		return $js;
 	}
 }
