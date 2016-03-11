@@ -1,6 +1,6 @@
 <?php
 
-defined('PILLSTER_VER') || define('PILLSTER_VER', '2.0.0');
+defined('PILLSTER_VER') || define('PILLSTER_VER', '2.0.1');
 
 return array(
 	'author' => 'TJ Draper',
