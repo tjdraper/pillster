@@ -1,3 +1,7 @@
+# Discontinued
+
+Please note that Pillster has been discontinued since EE 4 uses radio buttons for statuses now. However, if you'd like to use this add-on for EE 3, here it is.
+
 # Pillster 2.0.1 for ExpressionEngine 3
 
 The name Pillster comes from the fact that it used to turn the status dropdown into pill buttons. Now it uses ExpressionEngine 3’s native radio button styles, but they’re still kind of like pills and changing the name is too much trouble. And what would I change the name to anyway?
